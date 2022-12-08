@@ -1,0 +1,10 @@
+$ cd /
+$ ls
+dir hdwsmn
+dir lmlsvqsw
+dir rlfgcqz
+dir sjq
+dir tpnspw
+$ cd hdwsmn
+$ cd ..
+dir tonkatsu
