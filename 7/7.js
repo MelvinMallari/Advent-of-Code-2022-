@@ -79,12 +79,11 @@ const pt2 = () => {
     if (!node) return;
     let level = Object.values(node.directories);
     while (level.length > 0) {
-      const nextLevel = [];
+      let nextLevel = [];
       level.forEach((dir) => {
-        if (dir.size >= SPACE_NEEDED) {
-          min = dir.size < min ? dir.size : min;
-          nextLevel = nextLevel.concat(Object.values(dir.directories));
-        }
+        if (dir.size < SPACE_NEEDED) return;
+        min = dir.size < min ? dir.size : min;
+        nextLevel = nextLevel.concat(Object.values(dir.directories));
       });
       level = nextLevel;
     }
