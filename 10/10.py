@@ -24,16 +24,15 @@ while len(scheduled) > 0 or len(remaining) > 0:
   x.append(next_x)
 
 pt1 = 0
-s = set([20, 60, 100, 140, 180, 220])
-for i, n in enumerate(x, 1):
-  if i in s: pt1 += i*n
+for i in [20, 60, 100, 140, 180, 220]:
+  pt1 += i*x[i]
 print(pt1)
-  
+
 line = ''
-for cycle in range(len(x)):
+for cycle, x_value in enumerate(x):
   pos = cycle % 40
-  pixel = '🔥' if x[cycle] - 1 <= pos <= x[cycle] + 1 else '🎄'
-  if (cycle > 0 and pos == 0):
+  pixel = '🔥' if x_value - 1 <= pos <= x_value + 1 else '🎄'
+  if (pos == 0 and line != ''):
     print(line)
     line = pixel
   else: 
