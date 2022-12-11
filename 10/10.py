@@ -26,7 +26,15 @@ while len(scheduled) > 0 or len(remaining) > 0:
 
   x.append(next_x)
 
-print(len(x))
+
+
+
+pt1 = 0
+for i, n in enumerate(x, 1):
+  if i in set([20, 60, 100, 140, 180, 220]):
+    pt1 += i*n
+print(pt1)
+  
 line = ''
 for cycle in range(len(x)):
   pos = cycle % 40
@@ -36,11 +44,3 @@ for cycle in range(len(x)):
     line = pixel
   else: 
     line += pixel
-
-
-
-pt1 = 0
-for i, n in enumerate(x, 1):
-  if i in set([20, 60, 100, 140, 180, 220]):
-    pt1 += i*n
-  
