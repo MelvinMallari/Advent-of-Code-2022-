@@ -1,8 +1,5 @@
 from collections import deque
-data = [l.strip() for l in open('10.txt')]
-
-
-remaining = deque(data)
+remaining = deque([l.strip() for l in open('10.txt')])
 scheduled = deque()
 x = []
 
@@ -26,13 +23,10 @@ while len(scheduled) > 0 or len(remaining) > 0:
 
   x.append(next_x)
 
-
-
-
 pt1 = 0
+s = set([20, 60, 100, 140, 180, 220])
 for i, n in enumerate(x, 1):
-  if i in set([20, 60, 100, 140, 180, 220]):
-    pt1 += i*n
+  if i in s: pt1 += i*n
 print(pt1)
   
 line = ''
