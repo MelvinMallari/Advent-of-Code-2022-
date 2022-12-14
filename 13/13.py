@@ -21,7 +21,7 @@ def compare(l, r):
 def pt_1():
   res = 0
   for i, (l, r) in enumerate(zip(packets[::2], packets[1::2]), 1):
-    if compare(l, r) < 0: pt_1 += i
+    if compare(l, r) < 0: res += i
   return res
 
 def divider_index(packets, target):
