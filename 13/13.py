@@ -27,15 +27,10 @@ def pt_1():
 def divider_index(packets, target):
   return len([p for p in packets if compare(p, target) <= 0])
 
-def custom_compare(l, r):
-  if compare(l, r) < 0: return -1
-  if compare(l, r) > 0: return 1
-  return 0
-
 def pt_2():
   d1, d2 = [[2]], [[6]]
   p = packets + [d1, d2]
-  s = sorted(p, key=cmp_to_key(custom_compare))
+  s = sorted(p, key=cmp_to_key(compare))
   return divider_index(s, d1) * divider_index(s, d2)
 
 print(pt_2())
