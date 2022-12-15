@@ -6,17 +6,14 @@ with open('13.txt') as f:
 
 def compare(l, r):
   match l, r:
-    case int(), int(): 
-      return l - r
+    case int(), int(): return l - r
     case list(), list():
       for f, s in zip(l, r):
         diff = compare(f, s)
         if diff != 0: return diff
       return len(l) - len(r)
-    case int(), list():
-      return compare([l], r)
-    case list(), int():
-      return compare(l, [r])
+    case int(), list(): return compare([l], r)
+    case list(), int(): return compare(l, [r])
 
 def pt_1():
   res = 0
@@ -29,8 +26,7 @@ def divider_index(packets, target):
 
 def pt_2():
   d1, d2 = [[2]], [[6]]
-  p = packets + [d1, d2]
-  s = sorted(p, key=cmp_to_key(compare))
+  s = sorted(packets + [d1, d2], key=cmp_to_key(compare))
   return divider_index(s, d1) * divider_index(s, d2)
 
 print(pt_2())
