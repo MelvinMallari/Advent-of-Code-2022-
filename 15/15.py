@@ -12,7 +12,7 @@ pattern = re.compile(r"-?\d+")
 # abs(x - sx) <= dist - abs(Y - sy)
 # let z = dist - abs(Y - sy)
 # x - sx <= [-z, +z]
-# x <= [sx - z, sz + z]
+# x <= [sx - z, sx + z]
 # range of values:
 # sx - z <= x <= sx + z
 
