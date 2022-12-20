@@ -1,8 +1,5 @@
 import re
 
-pattern = re.compile(r"-?\d+")
-
-
 # pt1 notes, math
 # solve for range of x
 # dist = abs(sx - bx) + abs(sy - by)
@@ -17,7 +14,6 @@ pattern = re.compile(r"-?\d+")
 # sx - z <= x <= sx + z
 
 pattern = re.compile(r"-?\d+")
-
 Y = 2000000
 intervals = []
 known = set()
@@ -29,14 +25,11 @@ for line in open('15.txt'):
   z = dist - abs(sy - Y)
 
   # out sensor's range
-  if z < 0:
-    continue
+  if z < 0: continue
 
-  lo, hi = sx - z, sx + z
-  intervals.append([lo, hi])
+  intervals.append([sx - z, sx + z])
 
-  if by == Y:
-    known.add(bx)
+  if by == Y: known.add(bx)
 
 
 merged = []
