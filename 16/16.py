@@ -34,31 +34,6 @@ def floyd_warshall(valves):
   
   return dist
 
-
-def pt1():
-  valves = parse()
-  distances = floyd_warshall(valves)
-  non_zero_valves = [v for v in valves if valves[v].rate > 0]
-
-  def generate_open_options(curr, opened, time):
-    for v in non_zero_valves:
-      if v not in opened and distances[curr][v] < time:
-        opened.append(v)
-        yield from generate_open_options(v, opened, time - distances[curr][v] - 1)
-        opened.pop()
-
-    yield opened
-
-  def get_order_score(open_order, time):
-    start, res = 'AA', 0
-    for pos in open_order:
-      time -= distances[start][pos] + 1
-      res += valves[pos].rate * time
-      start = pos
-    return res
-
-  return max(get_order_score(o, 30) for o in generate_open_options('AA', [], 30))
-
 def solve():
   valves = parse()
   distances = floyd_warshall(valves)
