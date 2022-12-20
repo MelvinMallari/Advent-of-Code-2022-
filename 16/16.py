@@ -43,7 +43,7 @@ def solve():
     for v in non_zero_valves:
       if v not in opened and distances[curr][v] < time:
         opened.append(v)
-        yield from generate_open_options(v, opened, time - distances[curr][v] - 1)
+        yield from generate_open_options(v, opened, time - distances[curr][v])
         opened.pop()
 
     yield copy(opened)
