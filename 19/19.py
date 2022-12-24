@@ -1,41 +1,41 @@
-import re
+import fileinput, re
 
-costs = [map(int, re.findall( "-?\d+", l )) for l in open('19.txt')]
-
-res = 0
-for bp_id, orbot_ore, cbot_ore, obot_ore, obot_clay, gbot_ore, gbot_obs in costs:
-  bp_quality = 0
-  max_ore, max_clay, max_obs = max(orbot_ore, cbot_ore, obot_ore, gbot_ore), obot_clay, gbot_obs
-  def dfs(time, target_bot, orbots, cbots, obots, gbots, ore, clay, obs, geode):
-    global bp_quality
-    # todo: prune DFS here
-    if (
-      target_bot == 0 and ore >= max_ore or
-      target_bot == 1 and clay >= max_clay or
-      target_bot == 2 and (obs >= max_obs or clay == 0)
-    ): return
-    # need to do a while loop here to keep gathering resources until we can create a create a branch to continue dfs (make a robot)
-    while time:
-      if target_bot == 0 and ore >= orbot_ore: # create ore bot
-        for b in range(4):
-          dfs(time-1, b, orbots+1, cbots, obots, gbots, ore - orbot_ore + orbots, clay + cbots, obs + obots, geode + gbots)
-        return
-      elif target_bot == 1 and ore >= cbot_ore: # create clay bot
-        for b in range(4):
-          dfs(time-1, b, orbots, cbots+1, obots, gbots, ore - cbot_ore + orbots, clay + cbots, obs + obots, geode + gbots)
-        return
-      elif target_bot == 2 and ore >= obot_ore and clay >= obot_clay: # create obsidian bot
-        for b in range(4):
-          dfs(time-1, b, orbots, cbots, obots+1, gbots, ore - obot_ore + orbots, clay - obot_clay + cbots, obs + obots, geode + gbots)
-        return
-      elif target_bot == 3 and ore >= gbot_ore and obs >= gbot_obs: # create geode bot
-        for b in range(4):
-          dfs(time-1, b, orbots, cbots, obots, gbots+1, ore - gbot_ore + orbots, clay + cbots, obs - gbot_obs + obots, geode + gbots)
-        return
-      # if we can'time create a robot, gather resources
-      time, ore, clay, obs, geode = time - 1, ore + orbots, clay + cbots, obs + obots, geode + gbots
-    bp_quality = max(bp_quality, geode)
-  for bot in range(4):
-    dfs(24, bot, 1, 0, 0, 0, 0, 0, 0, 0)
-  res += bp_id * bp_quality
-print(res)
+r = 1
+o = [ ( t - 1 ) * t // 2 for t in range( 32 + 1 ) ]
+p = [ list( map( int, re.findall( "-?\d+", l ) ) ) for l in open('19.txt') ]
+for n, a, b, c, d, e, f in p[ : 3 ]:
+    m = 0
+    mi, mj, mk = max( a, b, c, e ), d, f
+    def dfs( t, g,         # t:time remaining, g:goal robot type
+             i, j, k, l,   # i:ore, j:clay, k:obsidian, l:geode robots
+             w, x, y, z ): # w:ore, x:clay, y:obsidian, z:geode available
+        global m
+        if ( g == 0 and i >= mi or
+             g == 1 and j >= mj or
+             g == 2 and ( k >= mk or j == 0 ) or
+             g == 3 and k == 0 or
+             z + l * t + o[ t ] <= m ):
+            return
+        while t:
+            if g == 0 and w >= a:
+                for g in range( 4 ):
+                    dfs( t - 1, g, i + 1, j, k, l, w - a + i, x + j, y + k, z + l )
+                return
+            elif g == 1 and w >= b:
+                for g in range( 4 ):
+                    dfs( t - 1, g, i, j + 1, k, l, w - b + i, x + j, y + k, z + l )
+                return
+            elif g == 2 and w >= c and x >= d:
+                for g in range( 4 ):
+                    dfs( t - 1, g, i, j, k + 1, l, w - c + i, x - d + j, y + k, z + l )
+                return
+            elif g == 3 and w >= e and y >= f:
+                for g in range( 4 ):
+                    dfs( t - 1, g, i, j, k, l + 1, w - e + i, x + j, y - f + k, z + l )
+                return
+            t, w, x, y, z = t - 1, w + i, x + j, y + k, z + l
+        m = max( m, z )
+    for g in range( 4 ):
+        dfs( 32, g, 1, 0, 0, 0, 0, 0, 0, 0 )
+    r *= m
+print( r )
