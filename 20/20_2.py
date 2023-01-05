@@ -27,7 +27,7 @@ for _ in range(10):
 
     if n == to: continue
 
-    # remove the moved node
+    # remove node
     n.prev.next = n.next
     n.next.prev = n.prev
 

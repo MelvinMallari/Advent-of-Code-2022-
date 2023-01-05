@@ -15,6 +15,7 @@ seen = {}
 num_rocks = 0
 TARGET_ROCKS = 1000000000000
 rock = {r.real + 2 + (r.imag + height + 3)*1j for r in rocks[0]}
+offset = 0
 
 # summarize the top skyline for the last 20 rows
 def summarize():
@@ -27,7 +28,6 @@ def summarize():
   
   t = max(o)
   return tuple(x - t for x in o)
-offset = 0
 
 while num_rocks < TARGET_ROCKS:
   for j, jet in enumerate(jets):

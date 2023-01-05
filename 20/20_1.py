@@ -26,7 +26,7 @@ for n in nodes:
 
   if n == to: continue
 
-  # remove the moved node
+  # remove node
   n.prev.next = n.next
   n.next.prev = n.prev
 
